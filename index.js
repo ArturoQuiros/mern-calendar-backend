@@ -16,10 +16,17 @@ app.use(cors());
 //public
 app.use(express.static("public"));
 
-//Ruta, lectura y parseo de Auth
+//lectura y parseo de Auth
 app.use(express.json("./routes/auth"));
+
+//Rutas
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/events", require("./routes/events"));
+
+//excceptionn
+app.get("*", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
 
 //listen
 app.listen(process.env.PORT, () => {
